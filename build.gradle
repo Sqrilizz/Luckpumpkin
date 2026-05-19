@@ -33,11 +33,14 @@ subprojects {
     }
 
     def determinePatchVersion = {
-        def tagInfo = providers.exec {
-            commandLine 'git', 'describe', '--tags'
-        }.standardOutput.asText.get().trim()
-
-        return tagInfo.contains('-') ? tagInfo.split('-')[1] : 0
+        try {
+            def tagInfo = providers.exec {
+                commandLine 'git', 'describe', '--tags'
+            }.standardOutput.asText.get().trim()
+            return tagInfo.contains('-') ? tagInfo.split('-')[1] : 0
+        } catch (Exception ignored) {
+            return 0
+        }
     }
 
     project.ext.majorVersion = '5'
