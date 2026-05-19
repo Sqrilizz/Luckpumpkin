@@ -3,7 +3,7 @@
 # LuckPerms — Pumpkin
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Build](https://github.com/Sqrilizz/LuckPerms/actions/workflows/build.yml/badge.svg)](https://github.com/Sqrilizz/LuckPerms/actions)
+[![Build](https://github.com/Sqrilizz/Luckpumpkin/actions/workflows/ci.yml/badge.svg)](https://github.com/Sqrilizz/Luckpumpkin/actions)
 
 A [LuckPerms](https://luckperms.net/) platform adapter for [PumpkinMC](https://pumpkinmc.org/) via [PatchBukkit](https://github.com/Pumpkin-MC/PatchBukkit).
 
