@@ -27,7 +27,6 @@ package me.lucko.luckperms.pumpkin.vault;
 
 import com.google.common.base.Preconditions;
 import me.lucko.luckperms.bukkit.vault.AbstractVaultPermission;
-import me.lucko.luckperms.bukkit.vault.ServerThreadLookupException;
 import me.lucko.luckperms.common.cacheddata.result.TristateResult;
 import me.lucko.luckperms.common.cacheddata.type.MonitoredMetaCache;
 import me.lucko.luckperms.common.cacheddata.type.PermissionCache;
@@ -97,7 +96,7 @@ public class PumpkinVaultPermission extends AbstractVaultPermission {
         }
 
         if (!this.plugin.getBootstrap().isServerStarting() && this.plugin.getBootstrap().getServer().isPrimaryThread() && !this.plugin.getConfiguration().get(ConfigKeys.VAULT_UNSAFE_LOOKUPS)) {
-            throw new ServerThreadLookupException(player);
+            throw new RuntimeException("Vault lookups by username from the main thread are unsafe. Player '" + player + "' is not online.");
         }
 
         uuid = this.plugin.lookupUniqueId(player).orElse(null);
@@ -130,7 +129,7 @@ public class PumpkinVaultPermission extends AbstractVaultPermission {
         }
 
         if (!this.plugin.getBootstrap().isServerStarting() && this.plugin.getBootstrap().getServer().isPrimaryThread() && !this.plugin.getConfiguration().get(ConfigKeys.VAULT_UNSAFE_LOOKUPS)) {
-            throw new ServerThreadLookupException(uuid);
+            throw new RuntimeException("Vault lookups by UUID from the main thread are unsafe. UUID '" + uuid + "' is not loaded.");
         }
 
         return this.plugin.getStorage().loadUser(uuid, null).join();

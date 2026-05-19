@@ -1,76 +1,115 @@
-![](https://raw.githubusercontent.com/LuckPerms/branding/master/banner/banner.png "Banner")
-# LuckPerms
-[![Build Status](https://ci.lucko.me/job/LuckPerms/badge/icon)](https://ci.lucko.me/job/LuckPerms/)
-[![javadoc](https://javadoc.io/badge2/net.luckperms/api/javadoc.svg)](https://javadoc.io/doc/net.luckperms/api)
-[![Maven Central](https://img.shields.io/maven-metadata/v/https/repo1.maven.org/maven2/net/luckperms/api/maven-metadata.xml.svg?label=maven%20central&colorB=brightgreen)](https://search.maven.org/artifact/net.luckperms/api)
-[![Discord](https://img.shields.io/discord/241667244927483904.svg?label=discord&logo=discord)](https://discord.gg/luckperms)
+<div align="center">
 
-LuckPerms is a permissions plugin for Minecraft servers. It allows server admins to control what features players can use by creating groups and assigning permissions.
+# LuckPerms — Pumpkin
 
-The latest downloads, wiki & other useful links can be found on the project homepage at [luckperms.net](https://luckperms.net/).
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Build](https://github.com/Sqrilizz/LuckPerms/actions/workflows/build.yml/badge.svg)](https://github.com/Sqrilizz/LuckPerms/actions)
 
-### PumpkinMC Support
+A [LuckPerms](https://luckperms.net/) platform adapter for [PumpkinMC](https://pumpkinmc.org/) via [PatchBukkit](https://github.com/Pumpkin-MC/PatchBukkit).
 
-This fork includes a full platform adapter for [PumpkinMC](https://pumpkinmc.org/) via [PatchBukkit](https://github.com/Pumpkin-MC/PatchBukkit), developed by [Sqrilizz](https://github.com/Sqrilizz). It achieves 1:1 feature parity with the Bukkit adapter including per-player `PermissibleBase` injection, server-level permission/defaults/subscription map injection, child-permission resolution, and async-safe context management. See the [pumpkin module README](pumpkin/README.md) for setup instructions, architecture details, and compatibility notes.
+Developed by [Sqrilizz](https://github.com/Sqrilizz) on top of LuckPerms by [Luck](https://github.com/lucko).
 
-It is:
+</div>
 
-* **fast** - written with performance and scalability in mind.
-* **reliable** - trusted by thousands of server admins, and the largest of server networks.
-* **easy to use** - setup permissions using commands, directly in config files, or using the web editor.
-* **flexible** - supports a variety of data storage options, and works on lots of different server types.
-* **extensive** - a plethora of customization options and settings which can be changed to suit your server.
-* **free** - available for download and usage at no cost, and permissively licensed so it can remain free forever.
+> [!IMPORTANT]
+> This adapter is currently under active development and tracks PatchBukkit compatibility as it evolves.
 
-For more information, see the wiki article on [Why LuckPerms?](https://luckperms.net/wiki/Why-LuckPerms)
+## About
+
+LuckPerms-Pumpkin brings the full LuckPerms permissions system to PumpkinMC servers. It is **not** a rewrite — it's a platform adapter that preserves LuckPerms' mature architecture while adapting it for Pumpkin's multi-threaded, async-oriented runtime.
+
+## Features
+
+- [x] Plugin loading via PatchBukkit
+- [x] `/luckperms` command and all subcommands
+- [x] Web editor integration
+- [x] Storage backends — H2, SQLite, MySQL, PostgreSQL, MongoDB
+- [x] Permission resolution — inheritance, wildcards, negation, cached calculations
+- [x] Per-player `LuckPermsPermissible` injection (1:1 Bukkit parity)
+- [x] Server-level `PermissionMap` / `DefaultsMap` / `SubscriptionMap` injection
+- [x] Child-permission resolution via `PumpkinPermissionMap`
+- [x] Contexts — gamemode, world
+- [x] Groups, tracks, meta, prefixes, suffixes
+- [x] Multi-language translations
+- [x] Cross-server messaging (`luckperms:update` channel)
+- [x] Diagnostics & benchmarks (`pumpkin-diag`, `pumpkin-benchmark`)
+- [x] Native `BukkitScheduler` (implemented in PatchBukkit — async tasks use native scheduler)
+- [x] `ServicesManager` / `LuckPerms` API registration (implemented in PatchBukkit)
+- [x] Vault integration (`Permission` and `Chat` via [VaultUnlocked](https://modrinth.com/plugin/vaultunlocked))
+- [ ] Plugin messaging (`getMessenger()` not yet implemented in PatchBukkit)
+
+## Installation
+
+1. **Requirements**: [PumpkinMC](https://pumpkinmc.org/) with [PatchBukkit](https://github.com/Pumpkin-MC/PatchBukkit) installed, Java 21+
+2. **Download**: Grab `LuckPerms-Pumpkin-*.jar` from the [releases](https://github.com/Sqrilizz/LuckPerms/releases)
+3. **Deploy**: Place the JAR into `patchbukkit/patchbukkit-plugins/`
+4. **Start**: Start your Pumpkin server — config generates on first run
+
+```
+patchbukkit/
+  └── patchbukkit-plugins/
+        └── LuckPerms-Pumpkin-*.jar
+```
 
 ## Building
-LuckPerms uses Gradle to handle dependencies & building.
 
-#### Requirements
-* Java 21 JDK or newer
-* Git
+> [!NOTE]
+> Requires Java 21 JDK or newer and Git.
 
-#### Compiling from source
 ```sh
 git clone https://github.com/Sqrilizz/LuckPerms.git
 cd LuckPerms/
-./gradlew build
-```
-
-You can find the output jars in the `loader/build/libs` or `build/libs` directories.
-
-To build only the Pumpkin adapter:
-```sh
 ./gradlew :pumpkin:loader:shadowJar
 ```
-The output JAR is at `pumpkin/loader/build/libs/LuckPerms-Pumpkin-*.jar`.
 
-## Tests
-There are some automated tests which run during each build.
+Output: `pumpkin/loader/build/libs/LuckPerms-Pumpkin-*.jar`
 
-* Unit tests are defined in [`common/src/test`](https://github.com/LuckPerms/LuckPerms/tree/master/common/src/test)
-* Integration tests are defined in [`standalone/src/test`](https://github.com/LuckPerms/LuckPerms/tree/master/standalone/src/test).
+## Commands
 
-## Contributing
-#### Pull Requests
-If you make any changes or improvements to the plugin which you think would be beneficial to others, please consider making a pull request to merge your changes back into the upstream project. (especially if your changes are bug fixes!)
+```
+/luckperms user <name>       # Manage user permissions
+/luckperms group <name>      # Manage group permissions
+/luckperms track <name>      # Manage tracks
+/luckperms editor            # Open web editor
+/luckperms sync              # Sync data from storage
+/luckperms verbose           # Verbose permission checking
+/luckperms tree              # Permission tree viewer
+/luckperms log               # View action log
+/luckperms info              # Plugin info
+/luckperms pumpkin-diag      # Thread & cache diagnostics  (requires luckperms.admin)
+/luckperms pumpkin-benchmark # Permission benchmarks        (requires luckperms.admin)
+```
 
-LuckPerms loosely follows the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html). Generally, try to copy the style of code found in the class you're editing. 
+> [!NOTE]
+> Aliases `lp`, `perm`, `perms` are also registered.
 
-#### Project Layout
-The project is split up into a few separate modules.
+## PatchBukkit Compatibility
 
-* **API** - The public, semantically versioned API used by other plugins wishing to integrate with and retrieve data from LuckPerms. This module (for the most part) does not contain any implementation itself, and is provided by the plugin.
-* **Common** - The common module contains most of the code which implements the respective LuckPerms plugins. This abstract module reduces duplicated code throughout the project.
-* **Bukkit, BungeeCord, Fabric, Forge, Nukkit, Sponge, Velocity & Pumpkin** - Each use the common module to implement plugins on the respective server platforms.
-
-## Contributors
-
-| Name | Role |
+| API | Status |
 |---|---|
-| [Luck](https://github.com/lucko) | Original author & maintainer of LuckPerms |
-| [Sqrilizz](https://github.com/Sqrilizz) | PumpkinMC platform adapter |
+| Commands | ✅ Supported |
+| Player events (login/quit/gamemode/world) | ✅ Supported |
+| `PermissibleBase` injection | ✅ Supported |
+| `PluginManager` map injection | ✅ Supported |
+| `ServicesManager` | ✅ Implemented — LP API registered on startup |
+| `BukkitScheduler` | ✅ Implemented — native async scheduling |
+| Vault (`Permission` / `Chat`) | ✅ Implemented via VaultUnlocked |
+| `getMessenger()` | ❌ Not implemented in PatchBukkit |
+| `getWorlds()` | ❌ Not implemented — world context skipped |
+
+## Development Roadmap
+
+- [x] **Phase 1** — Initial port (plugin loading, commands, permissions, storage)
+- [x] **Phase 2** — Compatibility fixes (threading, player lifecycle, events)
+- [x] **Phase 3** — Performance layer (caches, concurrent reads, benchmarks, diagnostics)
+- [x] **Phase 3.5** — Full server-level permission infrastructure (1:1 Bukkit parity)
+- [x] **Phase 4** — Pumpkin-native improvements (native scheduler, Vault integration)
+- [ ] **Phase 5** — Plugin messaging
+
+## Contributions
+
+Contributions are welcome! Please follow the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html) and try to match the style of the file you're editing.
 
 ## License
-LuckPerms is licensed under the permissive MIT license. Please see [`LICENSE.txt`](https://github.com/LuckPerms/LuckPerms/blob/master/LICENSE.txt) for more info.
+
+LuckPerms is licensed under the permissive [MIT License](https://github.com/LuckPerms/LuckPerms/blob/master/LICENSE.txt).
