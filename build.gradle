@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.licenser) apply false
-    alias(libs.plugins.loom) apply false
 }
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
@@ -53,18 +52,7 @@ subprojects {
     }
 
     repositories {
-        // Fix issue with lwjgl-freetype not being found on macOS / ForgeGradle issue
-        //
-        // Could not resolve all files for configuration ':_compileJava_1'.
-        // Could not find lwjgl-freetype-3.3.3-natives-macos-patch.jar (org.lwjgl:lwjgl-freetype:3.3.3).
-        maven {
-            url "https://libraries.minecraft.net"
-            content {
-                includeModule("org.lwjgl", "lwjgl-freetype")
-            }
-        }
         mavenCentral()
         maven { url 'https://repo.lucko.me/' }
-        maven { url 'https://libraries.minecraft.net/' }
     }
 }
