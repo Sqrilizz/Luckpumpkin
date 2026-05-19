@@ -36,7 +36,7 @@ LuckPerms-Pumpkin brings the full LuckPerms permissions system to PumpkinMC serv
 - [x] Native `BukkitScheduler` (merged upstream — [PatchBukkit#15](https://github.com/Pumpkin-MC/PatchBukkit/pull/15))
 - [x] `ServicesManager` / `LuckPerms` API registration (merged upstream — [PatchBukkit#15](https://github.com/Pumpkin-MC/PatchBukkit/pull/15))
 - [x] Vault integration (`Permission` and `Chat` via [VaultUnlocked](https://modrinth.com/plugin/vaultunlocked))
-- [ ] Plugin messaging (`getMessenger()` not yet implemented in PatchBukkit)
+- [x] Plugin messaging (`Messenger` API — channel registration and dispatch)
 
 ## Installation
 
@@ -94,8 +94,8 @@ Output: `pumpkin/loader/build/libs/LuckPerms-Pumpkin-*.jar`
 | `ServicesManager` | ✅ Merged upstream — LP API registered on startup |
 | `BukkitScheduler` | ✅ Merged upstream — native async scheduling |
 | Vault (`Permission` / `Chat`) | ✅ Implemented via VaultUnlocked |
-| `getMessenger()` | ❌ Not implemented in PatchBukkit |
-| `getWorlds()` | ❌ Not implemented — world context skipped |
+| `getMessenger()` | ✅ Implemented — channel registration and message dispatch |
+| `getWorlds()` | ✅ Implemented — world context supported |
 
 ## Development Roadmap
 
@@ -104,7 +104,7 @@ Output: `pumpkin/loader/build/libs/LuckPerms-Pumpkin-*.jar`
 - [x] **Phase 3** — Performance layer (caches, concurrent reads, benchmarks, diagnostics)
 - [x] **Phase 3.5** — Full server-level permission infrastructure (1:1 Bukkit parity)
 - [x] **Phase 4** — Pumpkin-native improvements (native scheduler, Vault integration)
-- [ ] **Phase 5** — Plugin messaging
+- [x] **Phase 5** — Plugin messaging & World API
 
 ## Contributions
 
