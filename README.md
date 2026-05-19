@@ -33,8 +33,8 @@ LuckPerms-Pumpkin brings the full LuckPerms permissions system to PumpkinMC serv
 - [x] Multi-language translations
 - [x] Cross-server messaging (`luckperms:update` channel)
 - [x] Diagnostics & benchmarks (`pumpkin-diag`, `pumpkin-benchmark`)
-- [x] Native `BukkitScheduler` (implemented in PatchBukkit — async tasks use native scheduler)
-- [x] `ServicesManager` / `LuckPerms` API registration (implemented in PatchBukkit)
+- [x] Native `BukkitScheduler` (merged upstream — [PatchBukkit#15](https://github.com/Pumpkin-MC/PatchBukkit/pull/15))
+- [x] `ServicesManager` / `LuckPerms` API registration (merged upstream — [PatchBukkit#15](https://github.com/Pumpkin-MC/PatchBukkit/pull/15))
 - [x] Vault integration (`Permission` and `Chat` via [VaultUnlocked](https://modrinth.com/plugin/vaultunlocked))
 - [ ] Plugin messaging (`getMessenger()` not yet implemented in PatchBukkit)
 
@@ -91,8 +91,8 @@ Output: `pumpkin/loader/build/libs/LuckPerms-Pumpkin-*.jar`
 | Player events (login/quit/gamemode/world) | ✅ Supported |
 | `PermissibleBase` injection | ✅ Supported |
 | `PluginManager` map injection | ✅ Supported |
-| `ServicesManager` | ✅ Implemented — LP API registered on startup |
-| `BukkitScheduler` | ✅ Implemented — native async scheduling |
+| `ServicesManager` | ✅ Merged upstream — LP API registered on startup |
+| `BukkitScheduler` | ✅ Merged upstream — native async scheduling |
 | Vault (`Permission` / `Chat`) | ✅ Implemented via VaultUnlocked |
 | `getMessenger()` | ❌ Not implemented in PatchBukkit |
 | `getWorlds()` | ❌ Not implemented — world context skipped |
