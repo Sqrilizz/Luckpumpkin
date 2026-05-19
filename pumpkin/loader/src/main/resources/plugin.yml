@@ -1,0 +1,14 @@
+name: LuckPerms
+version: ${pluginVersion}
+description: A permissions plugin for PumpkinMC via PatchBukkit
+authors: [Luck, Sqrilizz]
+website: https://luckperms.net
+main: me.lucko.luckperms.pumpkin.loader.PumpkinLoaderPlugin
+load: STARTUP
+
+api-version: 1.13
+
+commands:
+  luckperms:
+    description: Manage permissions
+    aliases: [lp, perm, perms, permission, permissions]
